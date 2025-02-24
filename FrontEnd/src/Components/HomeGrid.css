@@ -1,0 +1,43 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.title {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 4rem;
+}
+.headcontainer {
+  width: 100%;
+  margin: auto;
+  padding: 40px 20px;
+}
+.photo-gallery {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 10px;
+  height: 1200px;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.column img {
+  border-radius: 5px;
+  object-fit: cover;
+}
+.column .img1 {
+  height: 700px;
+}
+.column .img2{
+    height: 500px;
+}
+.column .img3{
+    height: 600px;
+}
+.column .img4{
+    height: 600px;
+}

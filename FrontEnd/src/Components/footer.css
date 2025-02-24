@@ -1,0 +1,7 @@
+/*footer*/
+.list-unstyled li, .list-inline{
+    display: flex;
+  }
+  .row h5{
+    font-weight: bold;
+  }

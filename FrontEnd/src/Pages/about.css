@@ -1,0 +1,64 @@
+.abtit {
+  text-align: center;
+  padding: 90px 0px;
+  font-weight: bold;
+  font-size: 50px;
+}
+.chtitle {
+  font-weight: bold;
+}
+.vision {
+  text-align: center;
+  padding-top: 90px;
+  font-weight: bold;
+  font-size: 50px;
+}
+
+.brief {
+  width: 80%;
+  padding: 40px 0px;
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+}
+.brief p {
+  max-width: 700px;
+}
+.choose {
+  text-align: center;
+  padding: 20px 0px;
+  font-weight: bold;
+  font-size: 50px;
+}
+.choosecont {
+  text-align: center;
+}
+.mobvideo {
+  display: none;
+  visibility: hidden;
+}
+.webvideo {
+  margin-top: -80px;
+  visibility: visible;
+}
+.webvideo video {
+  width: 100%;
+}
+@media (max-width: 700px) {
+  .webvideo {
+    display: none;
+    visibility: hidden;
+  }
+  .mobvideo {
+    display: block;
+    visibility: visible;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1500px) {
+  .webvideo video {
+    height: 1080px;
+    width: 1600px;
+  }
+}
