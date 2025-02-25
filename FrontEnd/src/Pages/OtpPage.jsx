@@ -47,7 +47,7 @@ function OtpPage() {
   const handleVerifyOtp = async () => {
     try {
       const response = await axios.post(
-        "http://auth-db942.hstgr.io:3306/auth/verifyotp",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com /auth/verifyotp",
         {
           email,
           otp: otp.join(""), // Convert array to string

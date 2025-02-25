@@ -46,7 +46,7 @@ function Profile({
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "http://auth-db942.hstgr.io:3306/users/profile",
+          "http://mediumturquoise-dunlin-253877.hostingersite.com /users/profile",
           {
             headers: {
               Authorization: `Bearer ${token}`, // Attach token for authentication

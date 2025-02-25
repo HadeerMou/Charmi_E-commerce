@@ -32,7 +32,7 @@ function DshCities() {
   const fetchCities = async () => {
     try {
       const response = await axios.get(
-        `http://auth-db942.hstgr.io:3306/cities`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /cities`
       );
       console.log("Fetched Cities:", response.data); // Debugging
       setCity(response.data);
@@ -45,7 +45,7 @@ function DshCities() {
   const fetchCityById = async (id) => {
     try {
       const response = await axios.get(
-        `http://auth-db942.hstgr.io:3306/cities/${id}`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /cities/${id}`
       );
       console.log(response.data); // Handle the fetched city data
     } catch (error) {
@@ -64,7 +64,7 @@ function DshCities() {
       };
 
       const response = await axios.post(
-        "http://auth-db942.hstgr.io:3306/cities",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com /cities",
         formattedCity,
         {
           headers: {
@@ -91,11 +91,14 @@ function DshCities() {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
-      await axios.delete(`http://auth-db942.hstgr.io:3306/cities/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Include authentication token
-        },
-      });
+      await axios.delete(
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /cities/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include authentication token
+          },
+        }
+      );
 
       setCity(city.filter((city) => city.id !== id));
     } catch (error) {
@@ -114,7 +117,7 @@ function DshCities() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       const response = await axios.put(
-        `http://auth-db942.hstgr.io:3306/cities/${editingCity.id}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /cities/${editingCity.id}`,
         updatedCity,
         {
           headers: {

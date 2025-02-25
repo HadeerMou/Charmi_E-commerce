@@ -37,7 +37,7 @@ function AdminPage() {
       }
 
       const response = await axios.get(
-        "http://auth-db942.hstgr.io:3306/admins",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com /admins",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -58,7 +58,7 @@ function AdminPage() {
   const fetchAdminById = async (id) => {
     try {
       const response = await axios.get(
-        `http://auth-db942.hstgr.io:3306/admins/${id}`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /admins/${id}`
       );
       console.log(response.data); // Handle the fetched admin data
     } catch (error) {
@@ -72,7 +72,7 @@ function AdminPage() {
       const token = localStorage.getItem("token"); // Retrieve token if stored in localStorage
 
       const response = await axios.post(
-        "http://auth-db942.hstgr.io:3306/admins",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com /admins",
         newAdmin,
         {
           headers: {
@@ -99,11 +99,14 @@ function AdminPage() {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
-      await axios.delete(`http://auth-db942.hstgr.io:3306/admins/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Include authentication token
-        },
-      });
+      await axios.delete(
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /admins/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include authentication token
+          },
+        }
+      );
 
       setAdmins((prevAdmins) => prevAdmins.filter((admin) => admin.id !== id));
     } catch (error) {
@@ -122,7 +125,7 @@ function AdminPage() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       const response = await axios.put(
-        `http://auth-db942.hstgr.io:3306/admins/${editingAdmin.id}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /admins/${editingAdmin.id}`,
         updatedAdmin,
         {
           headers: {

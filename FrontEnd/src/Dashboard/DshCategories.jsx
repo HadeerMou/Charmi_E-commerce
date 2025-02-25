@@ -30,7 +30,7 @@ function DshCategories() {
   const fetchCategorys = async () => {
     try {
       const response = await axios.get(
-        `http://auth-db942.hstgr.io:3306/category`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /category`
       );
       setCategory(response.data);
       console.log("catt", response);
@@ -43,7 +43,7 @@ function DshCategories() {
   const fetchCategoryById = async (id) => {
     try {
       const response = await axios.get(
-        `http://auth-db942.hstgr.io:3306/category/${id}`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /category/${id}`
       );
       console.log("Fetched Categories:", response.data); // Debugging
 
@@ -63,7 +63,7 @@ function DshCategories() {
         formData.append("imageFile", newCategory.imageFile);
       }
       const response = await axios.post(
-        "http://auth-db942.hstgr.io:3306/category",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com /category",
         formData,
         {
           headers: {
@@ -88,11 +88,14 @@ function DshCategories() {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
-      await axios.delete(`http://auth-db942.hstgr.io:3306/category/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Include authentication token
-        },
-      });
+      await axios.delete(
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /category/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include authentication token
+          },
+        }
+      );
 
       setCategory(category.filter((category) => category.id !== id));
     } catch (error) {
@@ -113,7 +116,7 @@ function DshCategories() {
       const token = localStorage.getItem("token");
 
       const response = await axios.put(
-        `http://auth-db942.hstgr.io:3306/category/${editingCategory.id}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /category/${editingCategory.id}`,
         { name: updatedCategory.name }, // Send only the name as JSON
         {
           headers: {

@@ -76,7 +76,7 @@ function ProductView({
         console.log("Fetching product details for ID:", productId);
 
         const productResponse = await axios.get(
-          `http://auth-db942.hstgr.io:3306/products/${productId}`
+          `http://mediumturquoise-dunlin-253877.hostingersite.com /products/${productId}`
         );
         console.log("Full API Response:", productResponse.data);
 
@@ -101,14 +101,14 @@ function ProductView({
     const fetchRelatedProducts = async (categoryId) => {
       try {
         const relatedResponse = await axios.get(
-          `http://auth-db942.hstgr.io:3306/category/${categoryId}`
+          `http://mediumturquoise-dunlin-253877.hostingersite.com /category/${categoryId}`
         );
 
         // Fetch product details for each related product to get images
         const relatedProductsWithImages = await Promise.all(
           relatedResponse.data.products.map(async (product) => {
             const productDetails = await axios.get(
-              `http://auth-db942.hstgr.io:3306/products/${product.id}`
+              `http://mediumturquoise-dunlin-253877.hostingersite.com /products/${product.id}`
             );
             return productDetails.data;
           })
@@ -129,7 +129,7 @@ function ProductView({
   const fetchProductImages = async (productId) => {
     try {
       const response = await axios.get(
-        `http://auth-db942.hstgr.io:3306/product-images/product/${productId}`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /product-images/product/${productId}`
       );
 
       console.log("API Response:", response.data);

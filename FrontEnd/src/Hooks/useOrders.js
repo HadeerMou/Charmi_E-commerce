@@ -13,7 +13,7 @@ const useOrders = () => {
       }
 
       const response = await axios.get(
-        "http://auth-db942.hstgr.io:3306/orders/user",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com /orders/user",
         {
           headers: { Authorization: `Bearer ${token}` },
         }

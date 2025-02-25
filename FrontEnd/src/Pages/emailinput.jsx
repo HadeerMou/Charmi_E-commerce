@@ -30,9 +30,11 @@ function EmailInput() {
       let apiEndpoint = "";
 
       if (isVerification) {
-        apiEndpoint = "http://auth-db942.hstgr.io:3306/auth/sendotp";
+        apiEndpoint =
+          "http://mediumturquoise-dunlin-253877.hostingersite.com /auth/sendotp";
       } else if (isForgotPassword) {
-        apiEndpoint = "http://auth-db942.hstgr.io:3306/auth/forget";
+        apiEndpoint =
+          "http://mediumturquoise-dunlin-253877.hostingersite.com /auth/forget";
       }
 
       if (!apiEndpoint) {

@@ -22,9 +22,12 @@ function Header({
   const fetchUserCart = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://auth-db942.hstgr.io:3306/cart", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        "http://mediumturquoise-dunlin-253877.hostingersite.com /cart",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       console.log(response);
 
       setCart(response.data); // Update cart state

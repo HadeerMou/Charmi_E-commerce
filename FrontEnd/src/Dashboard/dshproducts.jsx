@@ -42,7 +42,7 @@ function Dshproducts() {
   const fetchProductImage = async (productId) => {
     try {
       const response = await axios.get(
-        `http://auth-db942.hstgr.io:3306/product-images/product/${productId}`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /product-images/product/${productId}`
       );
       console.log(
         `API Response for product ${productId}:`,
@@ -62,7 +62,7 @@ function Dshproducts() {
   const fetchProductImages = async (productId) => {
     try {
       const response = await axios.get(
-        `http://auth-db942.hstgr.io:3306/product-images/product/${productId}`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /product-images/product/${productId}`
       );
       console.log(
         `API Response for product ${productId}:`,
@@ -80,7 +80,7 @@ function Dshproducts() {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        "http://auth-db942.hstgr.io:3306/products"
+        "http://mediumturquoise-dunlin-253877.hostingersite.com /products"
       );
 
       if (response.data && response.data.length > 0) {
@@ -115,7 +115,7 @@ function Dshproducts() {
 
       // Step 1: Create the Product First (send as JSON, map imageFile to image)
       const productResponse = await axios.post(
-        "http://auth-db942.hstgr.io:3306/products",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com /products",
         {
           name: newProduct.name,
           description: newProduct.description,
@@ -144,7 +144,7 @@ function Dshproducts() {
 
         // Send the image data to the product-images endpoint
         await axios.post(
-          "http://auth-db942.hstgr.io:3306/product-images", // Make sure this is the correct endpoint for image upload
+          "http://mediumturquoise-dunlin-253877.hostingersite.com /product-images", // Make sure this is the correct endpoint for image upload
           imageFormData,
           {
             headers: {
@@ -177,7 +177,7 @@ function Dshproducts() {
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `http://auth-db942.hstgr.io:3306/products/${productId}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /products/${productId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -194,7 +194,7 @@ function Dshproducts() {
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `http://auth-db942.hstgr.io:3306/product-images/${imageId}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /product-images/${imageId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -235,7 +235,7 @@ function Dshproducts() {
 
       // Step 1: Update Product (map imageFile to image)
       await axios.put(
-        `http://auth-db942.hstgr.io:3306/products/${editingProduct.id}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /products/${editingProduct.id}`,
         formattedUpdatedProduct,
         {
           headers: {

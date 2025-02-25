@@ -46,7 +46,7 @@ export default function Address({ addressId }) {
       console.log("User ID Type:", typeof userId, "Value:", userId);
 
       const response = await axios.get(
-        `http://auth-db942.hstgr.io:3306/address/user/${userId}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /address/user/${userId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -71,7 +71,7 @@ export default function Address({ addressId }) {
 
       // Create the address
       const response = await axios.post(
-        "http://auth-db942.hstgr.io:3306/address",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com /address",
         newAddress,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -83,14 +83,14 @@ export default function Address({ addressId }) {
 
       // Fetch user addresses to check if it's the first one
       const userAddressesResponse = await axios.get(
-        `http://auth-db942.hstgr.io:3306/address/user/${userId}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /address/user/${userId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       if (userAddressesResponse.data.length === 1) {
         // If this is the first address, set it as default
         await axios.post(
-          `http://auth-db942.hstgr.io:3306/address/user/${userId}/default/${createdAddress.id}`,
+          `http://mediumturquoise-dunlin-253877.hostingersite.com /address/user/${userId}/default/${createdAddress.id}`,
           {},
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -119,7 +119,7 @@ export default function Address({ addressId }) {
       }
 
       await axios.put(
-        `http://auth-db942.hstgr.io:3306/address/${addressId}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /address/${addressId}`,
         newAddress,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -142,7 +142,7 @@ export default function Address({ addressId }) {
       }
 
       await axios.post(
-        `http://auth-db942.hstgr.io:3306/address/user/${userId}/default/${addressId}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /address/user/${userId}/default/${addressId}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -163,7 +163,7 @@ export default function Address({ addressId }) {
       }
 
       await axios.delete(
-        `http://auth-db942.hstgr.io:3306/address/${addressId}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /address/${addressId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -180,7 +180,7 @@ export default function Address({ addressId }) {
   const fetchCities = async () => {
     try {
       const response = await axios.get(
-        "http://auth-db942.hstgr.io:3306/cities"
+        "http://mediumturquoise-dunlin-253877.hostingersite.com /cities"
       );
       setCities(response.data);
     } catch (error) {
@@ -191,7 +191,7 @@ export default function Address({ addressId }) {
   const fetchCountries = async () => {
     try {
       const response = await axios.get(
-        "http://auth-db942.hstgr.io:3306/country"
+        "http://mediumturquoise-dunlin-253877.hostingersite.com /country"
       );
       setCountries(response.data);
     } catch (error) {
@@ -202,7 +202,7 @@ export default function Address({ addressId }) {
   const fetchDistricts = async (cityId) => {
     try {
       const response = await axios.get(
-        `http://auth-db942.hstgr.io:3306/district/by-city/${cityId}`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /district/by-city/${cityId}`
       );
       setDistricts(response.data);
     } catch (error) {

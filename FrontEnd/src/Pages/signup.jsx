@@ -27,7 +27,7 @@ function Signup({ handleVerifyOtp }) {
 
     try {
       const response = await axios.post(
-        "http://auth-db942.hstgr.io:3306/auth/signUp",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com /auth/signUp",
         formData,
         {
           headers: {

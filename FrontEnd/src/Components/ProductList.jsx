@@ -22,7 +22,7 @@ function ProductList({ addToCart }) {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "http://auth-db942.hstgr.io:3306/products",
+          "http://mediumturquoise-dunlin-253877.hostingersite.com /products",
           {}
         );
 
@@ -38,7 +38,7 @@ function ProductList({ addToCart }) {
           const productsWithImages = await Promise.all(
             filteredProducts.map(async (product) => {
               const imageResponse = await axios.get(
-                `http://auth-db942.hstgr.io:3306/product-images/product/${product.id}`
+                `http://mediumturquoise-dunlin-253877.hostingersite.com /product-images/product/${product.id}`
               );
 
               const imageUrl =

@@ -35,7 +35,7 @@ export default function Checkout() {
       }
 
       const response = await axios.get(
-        `http://auth-db942.hstgr.io:3306/address/user/${userId}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com /address/user/${userId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -113,7 +113,7 @@ export default function Checkout() {
       console.log("Order Payload:", JSON.stringify(orderData, null, 2));
 
       const response = await axios.post(
-        "http://auth-db942.hstgr.io:3306/orders",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com /orders",
         orderData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
