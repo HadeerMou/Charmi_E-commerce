@@ -71,7 +71,7 @@ function App() {
     try {
       setIsLoading(true); // ✅ Set loading before fetching
       const response = await axios.get(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /products"
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/products"
       );
       setProducts(response.data);
       setIsLoading(false); // ✅ Set loading false after success
@@ -85,7 +85,7 @@ function App() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /cart",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/cart",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -109,7 +109,7 @@ function App() {
       console.log("Token before adding to cart:", token);
 
       const response = await axios.post(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /cart-items",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/cart-items",
         { productId: product.id, quantity: 1 },
         { headers: { Authorization: `Bearer ${token}` } }
       );

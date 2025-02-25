@@ -38,7 +38,7 @@ function DshUsers() {
       }
 
       const response = await axios.get(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /users",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/users",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -59,7 +59,7 @@ function DshUsers() {
   const fetchUserById = async (id) => {
     try {
       const response = await axios.get(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /users/${id}`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/users/${id}`
       );
       console.log(response.data); // Handle the fetched user data
     } catch (error) {
@@ -73,7 +73,7 @@ function DshUsers() {
       const token = localStorage.getItem("token"); // Retrieve token if stored in localStorage
 
       const response = await axios.post(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /users",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/users",
         newUser,
         {
           headers: {
@@ -103,7 +103,7 @@ function DshUsers() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       await axios.delete(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /users/${id}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/users/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include authentication token
@@ -128,7 +128,7 @@ function DshUsers() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       const response = await axios.put(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /users/${editingUser.id}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/users/${editingUser.id}`,
         updatedUser,
         {
           headers: {

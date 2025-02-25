@@ -23,7 +23,7 @@ function Header({
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /cart",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/cart",
         {
           headers: { Authorization: `Bearer ${token}` },
         }

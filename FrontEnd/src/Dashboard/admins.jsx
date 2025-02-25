@@ -37,7 +37,7 @@ function AdminPage() {
       }
 
       const response = await axios.get(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /admins",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/admins",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -58,7 +58,7 @@ function AdminPage() {
   const fetchAdminById = async (id) => {
     try {
       const response = await axios.get(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /admins/${id}`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/admins/${id}`
       );
       console.log(response.data); // Handle the fetched admin data
     } catch (error) {
@@ -72,7 +72,7 @@ function AdminPage() {
       const token = localStorage.getItem("token"); // Retrieve token if stored in localStorage
 
       const response = await axios.post(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /admins",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/admins",
         newAdmin,
         {
           headers: {
@@ -100,7 +100,7 @@ function AdminPage() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       await axios.delete(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /admins/${id}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/admins/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include authentication token
@@ -125,7 +125,7 @@ function AdminPage() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       const response = await axios.put(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /admins/${editingAdmin.id}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/admins/${editingAdmin.id}`,
         updatedAdmin,
         {
           headers: {

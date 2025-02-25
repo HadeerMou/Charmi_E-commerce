@@ -32,7 +32,7 @@ function DshCities() {
   const fetchCities = async () => {
     try {
       const response = await axios.get(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /cities`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/cities`
       );
       console.log("Fetched Cities:", response.data); // Debugging
       setCity(response.data);
@@ -45,7 +45,7 @@ function DshCities() {
   const fetchCityById = async (id) => {
     try {
       const response = await axios.get(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /cities/${id}`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/cities/${id}`
       );
       console.log(response.data); // Handle the fetched city data
     } catch (error) {
@@ -64,7 +64,7 @@ function DshCities() {
       };
 
       const response = await axios.post(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /cities",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/cities",
         formattedCity,
         {
           headers: {
@@ -92,7 +92,7 @@ function DshCities() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       await axios.delete(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /cities/${id}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/cities/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include authentication token
@@ -117,7 +117,7 @@ function DshCities() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       const response = await axios.put(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /cities/${editingCity.id}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/cities/${editingCity.id}`,
         updatedCity,
         {
           headers: {

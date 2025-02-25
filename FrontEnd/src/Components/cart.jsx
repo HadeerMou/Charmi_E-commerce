@@ -51,7 +51,7 @@ export default function Cart({
       if (newQuantity < 1) newQuantity = 1; // Prevent negative or zero quantity
 
       const response = await axios.put(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /cart-items",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/cart-items",
         { product_id: productId, quantity: newQuantity },
 
         { headers: { Authorization: `Bearer ${token}` } }
@@ -68,7 +68,7 @@ export default function Cart({
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /cart-items/${productId}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/cart-items/${productId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

@@ -31,10 +31,10 @@ function EmailInput() {
 
       if (isVerification) {
         apiEndpoint =
-          "http://mediumturquoise-dunlin-253877.hostingersite.com /auth/sendotp";
+          "http://mediumturquoise-dunlin-253877.hostingersite.com/auth/sendotp";
       } else if (isForgotPassword) {
         apiEndpoint =
-          "http://mediumturquoise-dunlin-253877.hostingersite.com /auth/forget";
+          "http://mediumturquoise-dunlin-253877.hostingersite.com/auth/forget";
       }
 
       if (!apiEndpoint) {

@@ -15,7 +15,7 @@ function Signin({ userType }) {
 
     try {
       const response = await axios.post(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /auth/login",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/auth/login",
         { email, password },
         {
           headers: {
@@ -35,7 +35,7 @@ function Signin({ userType }) {
       // Fetch user profile to get the user ID
       if (userType !== "ADMIN") {
         const profileResponse = await axios.get(
-          "http://mediumturquoise-dunlin-253877.hostingersite.com /users/profile",
+          "http://mediumturquoise-dunlin-253877.hostingersite.com/users/profile",
           {
             headers: {
               Authorization: `Bearer ${token}`,

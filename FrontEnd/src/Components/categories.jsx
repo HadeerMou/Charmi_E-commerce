@@ -18,10 +18,10 @@ function Categories({ addToCart }) {
     const fetchCategoriesAndProducts = async () => {
       try {
         const categoryResponse = await axios.get(
-          "http://mediumturquoise-dunlin-253877.hostingersite.com /category"
+          "http://mediumturquoise-dunlin-253877.hostingersite.com/category"
         );
         const productResponse = await axios.get(
-          "http://mediumturquoise-dunlin-253877.hostingersite.com /products"
+          "http://mediumturquoise-dunlin-253877.hostingersite.com/products"
         );
 
         if (categoryResponse.data && productResponse.data) {
@@ -38,7 +38,7 @@ function Categories({ addToCart }) {
             const productsWithImages = await Promise.all(
               filteredProducts.map(async (product) => {
                 const imageResponse = await axios.get(
-                  `http://mediumturquoise-dunlin-253877.hostingersite.com /product-images/product/${product.id}`
+                  `http://mediumturquoise-dunlin-253877.hostingersite.com/product-images/product/${product.id}`
                 );
 
                 const imageUrl =

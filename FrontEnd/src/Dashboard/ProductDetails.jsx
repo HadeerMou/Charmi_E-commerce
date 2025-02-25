@@ -42,12 +42,12 @@ function ProductDetails() {
   const fetchProductDetails = async () => {
     try {
       const response = await axios.get(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /products/${productId}`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/products/${productId}`
       );
 
       if (response.data) {
         const imagesResponse = await axios.get(
-          `http://mediumturquoise-dunlin-253877.hostingersite.com /product-images/product/${productId}`
+          `http://mediumturquoise-dunlin-253877.hostingersite.com/product-images/product/${productId}`
         );
         const images = imagesResponse.data || [];
 
@@ -81,7 +81,7 @@ function ProductDetails() {
 
       // Send image upload request
       await axios.post(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /product-images",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/product-images",
         imageFormData,
         {
           headers: {
@@ -107,7 +107,7 @@ function ProductDetails() {
       }
 
       await axios.delete(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /product-images/${imageId}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/product-images/${imageId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -139,7 +139,7 @@ function ProductDetails() {
       imageFormData.append("isDefault", false); // Keep the same status
 
       await axios.put(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /product-images/${imageId}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/product-images/${imageId}`,
         imageFormData,
         {
           headers: {

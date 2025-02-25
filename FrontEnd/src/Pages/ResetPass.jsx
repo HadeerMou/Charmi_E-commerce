@@ -40,7 +40,7 @@ function ResetPass() {
 
     try {
       const response = await axios.post(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /auth/reset",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/auth/reset",
         {
           email, // The email linked to the reset request
           newPassword: password,

@@ -11,7 +11,7 @@ export default function Products({ showProducts }) {
 
   useEffect(() => {
     axios
-      .get("http://mediumturquoise-dunlin-253877.hostingersite.com /category")
+      .get("http://mediumturquoise-dunlin-253877.hostingersite.com/category")
       .then((response) => {
         setCategories(response.data);
       })

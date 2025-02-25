@@ -22,7 +22,7 @@ function DshOrders() {
     try {
       const token = localStorage.getItem("token"); // Get token if authentication is needed
       const response = await axios.get(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /orders/all",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/orders/all",
         {
           headers: { Authorization: `Bearer ${token}` }, // Include token in request
         }
@@ -53,7 +53,7 @@ function DshOrders() {
     try {
       const token = localStorage.getItem("token"); // Get token if authentication is needed
       const response = await axios.get(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /users",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/users",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -79,7 +79,7 @@ function DshOrders() {
       const token = localStorage.getItem("token"); // Get token if authentication is needed
 
       const response = await axios.get(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /products",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/products",
         {
           headers: { Authorization: `Bearer ${token}` }, // Include token in request
         }
@@ -104,7 +104,7 @@ function DshOrders() {
       const token = localStorage.getItem("token");
 
       const response = await axios.put(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /orders/${orderId}/status`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/orders/${orderId}/status`,
         { status: newStatus },
         {
           headers: {
@@ -132,7 +132,7 @@ function DshOrders() {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /orders/${orderId}/confirm`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/orders/${orderId}/confirm`,
         {},
         {
           headers: {

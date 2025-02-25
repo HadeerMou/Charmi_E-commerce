@@ -14,7 +14,7 @@ const useProducts = () => {
         for (const item of order.orderItems) {
           if (!productData[item.productId]) {
             const response = await axios.get(
-              `http://mediumturquoise-dunlin-253877.hostingersite.com /products/${item.productId}`,
+              `http://mediumturquoise-dunlin-253877.hostingersite.com/products/${item.productId}`,
               {
                 headers: { Authorization: `Bearer ${token}` },
               }

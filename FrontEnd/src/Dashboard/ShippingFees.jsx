@@ -44,7 +44,7 @@ function ShippingFees() {
       const fee = updatedFees[cityId];
 
       await axios.put(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /shipping-fees`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/shipping-fees`,
         { city_id: cityId, fee: parseInt(fee) },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -65,7 +65,7 @@ function ShippingFees() {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /shipping-fees",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/shipping-fees",
         { city_id: parseInt(newFee.cityId), fee: parseInt(newFee.fee) },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -81,7 +81,7 @@ function ShippingFees() {
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /shipping-fees/${cityId}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/shipping-fees/${cityId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -102,10 +102,10 @@ function ShippingFees() {
   const fetchCities = async () => {
     try {
       const citiesResponse = await axios.get(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /cities"
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/cities"
       );
       const shippingResponse = await axios.get(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /shipping-fees"
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/shipping-fees"
       );
 
       // Merge cities with their shipping fees
@@ -126,7 +126,7 @@ function ShippingFees() {
   const fetchCityById = async (id) => {
     try {
       const response = await axios.get(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /cities/${id}`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/cities/${id}`
       );
       console.log(response.data); // Handle the fetched city data
     } catch (error) {
@@ -145,7 +145,7 @@ function ShippingFees() {
       };
 
       const response = await axios.post(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /cities",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/cities",
         formattedCity,
         {
           headers: {
@@ -173,7 +173,7 @@ function ShippingFees() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       await axios.delete(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /cities/${id}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/cities/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include authentication token
@@ -198,7 +198,7 @@ function ShippingFees() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       const response = await axios.put(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /cities/${editingCity.id}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/cities/${editingCity.id}`,
         updatedCity,
         {
           headers: {

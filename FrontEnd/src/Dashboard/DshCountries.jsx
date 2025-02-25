@@ -31,7 +31,7 @@ function DshCountries() {
   const fetchCities = async () => {
     try {
       const response = await axios.get(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /country`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/country`
       );
       setCountry(response.data);
     } catch (error) {
@@ -43,7 +43,7 @@ function DshCountries() {
   const fetchCountryById = async (id) => {
     try {
       const response = await axios.get(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /country/${id}`
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/country/${id}`
       );
       console.log(response.data); // Handle the fetched Country data
     } catch (error) {
@@ -57,7 +57,7 @@ function DshCountries() {
       const token = localStorage.getItem("token"); // Retrieve token if stored in localStorage
 
       const response = await axios.post(
-        "http://mediumturquoise-dunlin-253877.hostingersite.com /country",
+        "http://mediumturquoise-dunlin-253877.hostingersite.com/country",
         newCountry,
         {
           headers: {
@@ -81,7 +81,7 @@ function DshCountries() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       await axios.delete(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /country/${id}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/country/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Include authentication token
@@ -106,7 +106,7 @@ function DshCountries() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       const response = await axios.put(
-        `http://mediumturquoise-dunlin-253877.hostingersite.com /country/${editingCountry.id}`,
+        `http://mediumturquoise-dunlin-253877.hostingersite.com/country/${editingCountry.id}`,
         updatedCountry,
         {
           headers: {
