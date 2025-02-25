@@ -10,7 +10,7 @@ export default function Cart({
   products,
   cart,
   fetchUserCart,
-  setTotalQuantity,
+  totalQuantity,
 }) {
   const navigate = useNavigate();
   const { selectedCurrency, convertAmount } = useCurrency();
@@ -51,7 +51,7 @@ export default function Cart({
       if (newQuantity < 1) newQuantity = 1; // Prevent negative or zero quantity
 
       const response = await axios.put(
-        "http://localhost:3000/cart-items",
+        "http://auth-db942.hstgr.io:3306/cart-items",
         { product_id: productId, quantity: newQuantity },
 
         { headers: { Authorization: `Bearer ${token}` } }
@@ -67,9 +67,12 @@ export default function Cart({
   const removeFromCart = async (productId) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3000/cart-items/${productId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `http://auth-db942.hstgr.io:3306/cart-items/${productId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       fetchUserCart();
     } catch (error) {
       console.error("Error removing item:", error);
@@ -91,15 +94,6 @@ export default function Cart({
 
     return { ...product, image: imagePath };
   };
-
-  const totalQuantity = cart.reduce(
-    (acc, item) => acc + (item.quantity || 0),
-    0
-  );
-
-  useEffect(() => {
-    setTotalQuantity(totalQuantity); // Update the parent state with cart quantity
-  }, [totalQuantity, setTotalQuantity]);
 
   const totalPrice = cart.reduce((acc, item) => {
     const product = getProductInfo(item.productId);
@@ -168,14 +162,14 @@ export default function Cart({
                   <button
                     onClick={() =>
                       updateQuantityInCart(item.productId, "minus")
-                    }
-                  >
+                    }>
                     -
                   </button>
                   <span>{item.quantity}</span>
                   <button
-                    onClick={() => updateQuantityInCart(item.productId, "plus")}
-                  >
+                    onClick={() =>
+                      updateQuantityInCart(item.productId, "plus")
+                    }>
                     +
                   </button>
                 </div>

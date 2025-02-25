@@ -27,7 +27,7 @@ function Signup({ handleVerifyOtp }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/signUp",
+        "http://auth-db942.hstgr.io:3306/auth/signUp",
         formData,
         {
           headers: {

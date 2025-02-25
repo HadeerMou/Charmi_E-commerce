@@ -15,6 +15,7 @@ function ProductView({
   cart,
   showProducts,
   addToCart,
+  totalQuantity,
 }) {
   const { translations } = useTranslation();
   const location = useLocation();
@@ -58,7 +59,9 @@ function ProductView({
             <p>{product.description}</p>
             <p className="price">{product.price} EGP</p>
             <div className="productIcon">
-              <i className="bi bi-cart-plus"></i>
+              <i
+                className="bi bi-cart-plus"
+                onClick={() => addToCart(product)}></i>
             </div>
           </div>
         </div>
@@ -73,7 +76,7 @@ function ProductView({
         console.log("Fetching product details for ID:", productId);
 
         const productResponse = await axios.get(
-          `http://localhost:3000/products/${productId}`
+          `http://auth-db942.hstgr.io:3306/products/${productId}`
         );
         console.log("Full API Response:", productResponse.data);
 
@@ -98,14 +101,14 @@ function ProductView({
     const fetchRelatedProducts = async (categoryId) => {
       try {
         const relatedResponse = await axios.get(
-          `http://localhost:3000/category/${categoryId}`
+          `http://auth-db942.hstgr.io:3306/category/${categoryId}`
         );
 
         // Fetch product details for each related product to get images
         const relatedProductsWithImages = await Promise.all(
           relatedResponse.data.products.map(async (product) => {
             const productDetails = await axios.get(
-              `http://localhost:3000/products/${product.id}`
+              `http://auth-db942.hstgr.io:3306/products/${product.id}`
             );
             return productDetails.data;
           })
@@ -126,7 +129,7 @@ function ProductView({
   const fetchProductImages = async (productId) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/product-images/product/${productId}`
+        `http://auth-db942.hstgr.io:3306/product-images/product/${productId}`
       );
 
       console.log("API Response:", response.data);
@@ -167,10 +170,11 @@ function ProductView({
         toggleProductsVisibility={toggleProductsVisibility}
         toggleCartVisibility={toggleCartVisibility}
         cart={cart}
+        totalQuantity={totalQuantity}
       />
       <Products showProducts={showProducts} />
-      <div class="topcontainer">
-        <div class="im">
+      <div className="topcontainer">
+        <div className="im">
           {productImages.map((img, index) => (
             <img
               key={index}

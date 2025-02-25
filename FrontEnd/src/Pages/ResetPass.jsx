@@ -39,11 +39,14 @@ function ResetPass() {
     const otp = sessionStorage.getItem("otp"); // ✅ Retrieve OTP stored in sessionStorage
 
     try {
-      const response = await axios.post("http://localhost:3000/auth/reset", {
-        email, // The email linked to the reset request
-        newPassword: password,
-        otp,
-      });
+      const response = await axios.post(
+        "http://auth-db942.hstgr.io:3306/auth/reset",
+        {
+          email, // The email linked to the reset request
+          newPassword: password,
+          otp,
+        }
+      );
 
       console.log("Password Reset Successful:", response.data);
 

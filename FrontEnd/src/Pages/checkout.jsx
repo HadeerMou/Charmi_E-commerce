@@ -7,6 +7,8 @@ export default function Checkout() {
   const location = useLocation();
   const navigate = useNavigate();
   const { cart, totalPrice } = location.state || { cart: [], totalPrice: 0 };
+  const [defaultAddress, setDefaultAddress] = useState(null);
+  const [defaultAddressId, setDefaultAddressId] = useState(null);
   const [formData, setFormData] = useState({
     firstname: "",
     email: "",
@@ -22,6 +24,60 @@ export default function Checkout() {
     sameadr: true,
   });
 
+  const fetchDefaultAddress = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+
+      if (!token || !userId) {
+        alert("Unauthorized: Please log in again");
+        return;
+      }
+
+      const response = await axios.get(
+        `http://auth-db942.hstgr.io:3306/address/user/${userId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      const defaultAddr = response.data.find((address) => address.isDefault);
+      console.log("API Response:", response.data);
+
+      if (defaultAddr) {
+        setDefaultAddress(defaultAddr);
+        setDefaultAddressId(defaultAddr.id);
+        console.log("Fetched Default Address:", defaultAddr);
+      } else {
+        alert("No default address found. Please set one in your profile.");
+        navigate("/profile");
+      }
+    } catch (error) {
+      console.error("Error fetching default address:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDefaultAddress();
+  }, []);
+
+  useEffect(() => {
+    if (defaultAddress) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        firstname: defaultAddress.fullName || "",
+        email: defaultAddress.email || "",
+        address: defaultAddress.street || "",
+        city: defaultAddress.city || "",
+        state: defaultAddress.state || "",
+        zip: defaultAddress.zip || "",
+      }));
+    }
+    console.log("Updated Default Address:", defaultAddress);
+  }, [defaultAddress]);
+
+  useEffect(() => {
+    console.log("Updated Default Address ID:", defaultAddressId);
+  }, [defaultAddressId]);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -33,41 +89,47 @@ export default function Checkout() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!defaultAddressId) {
+      alert(
+        "No default address found. Please select an address before proceeding."
+      );
+      return;
+    }
+
     try {
       const token = localStorage.getItem("token");
 
       const orderData = {
         total: totalPrice,
-        addressId: 1,
+        addressId: defaultAddressId,
         orderItems: cart.map((item) => ({
           productId: item.productId,
           quantity: item.quantity,
-          price: parseInt(item.price, 10), // Convert price to integer
+          price: parseInt(item.price, 10),
         })),
       };
-      console.log(typeof orderData.orderItems.price);
+
+      console.log("Final Address ID:", defaultAddressId);
+      console.log("Order Payload:", JSON.stringify(orderData, null, 2));
 
       const response = await axios.post(
-        "http://localhost:3000/orders",
+        "http://auth-db942.hstgr.io:3306/orders",
         orderData,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
       console.log("Order placed", response.data);
       alert("Order placed successfully!");
-
       navigate("/order-success");
     } catch (error) {
-      console.error("Error placing order:", error);
-      alert("Failed to place order. Please try again");
+      console.error("Error placing order:", error.response?.data || error);
+      alert(
+        `Failed to place order: ${
+          error.response?.data?.message || "Unknown error"
+        }`
+      );
     }
   };
-  console.log("Cart Data:", cart);
-  useEffect(() => {
-    console.log("Received Cart Data in Checkout:", cart);
-  }, [cart]);
 
   return (
     <div className="checkout-container">
@@ -78,143 +140,31 @@ export default function Checkout() {
             <form onSubmit={handleSubmit}>
               <div className="row">
                 <div className="col-50">
-                  <h3>Billing Address</h3>
-                  <label>Full Name</label>
-                  <input
-                    type="text"
-                    name="firstname"
-                    value={formData.firstname}
-                    onChange={handleChange}
-                    placeholder="John M. Doe"
-                    required
-                  />
-                  <label>Email</label>
-                  <input
-                    type="text"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="john@example.com"
-                    required
-                  />
-                  <label>Address</label>
-                  <input
-                    type="text"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    placeholder="542 W. 15th Street"
-                    required
-                  />
-                  <label>City</label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleChange}
-                    placeholder="New York"
-                    required
-                  />
-                  <div className="row">
-                    <div className="col-50">
-                      <label>State</label>
-                      <input
-                        type="text"
-                        name="state"
-                        value={formData.state}
-                        onChange={handleChange}
-                        placeholder="NY"
-                        required
-                      />
+                  <h3>Shipping Address</h3>
+                  {defaultAddress ? (
+                    <div>
+                      <p>
+                        <strong>{defaultAddress.fullName}</strong>
+                      </p>
+                      <p>
+                        {defaultAddress.street}, {defaultAddress.city},{" "}
+                        {defaultAddress.state}, {defaultAddress.zip}
+                      </p>
+                      <p>{defaultAddress.country}</p>
                     </div>
-                    <div className="col-50">
-                      <label>Zip</label>
-                      <input
-                        type="text"
-                        name="zip"
-                        value={formData.zip}
-                        onChange={handleChange}
-                        placeholder="10001"
-                        required
-                      />
-                    </div>
-                  </div>
+                  ) : (
+                    <p>
+                      No default address found. Please set one in your profile.
+                    </p>
+                  )}
                 </div>
-
-                {/*                 <div className="col-50">
-                  <h3>Payment</h3>
-                  <label htmlFor="fname">Accepted Cards</label>
-                  <div className="icon-container">
-                    <i
-                      className="fa fa-cc-visa"
-                      style={{ color: "navy", marginRight: 6 }}
-                    ></i>
-                    <i
-                      className="fa fa-cc-amex"
-                      style={{ color: "blue", marginRight: 6 }}
-                    ></i>
-                    <i
-                      className="fa fa-cc-mastercard"
-                      style={{ color: "red", marginRight: 6 }}
-                    ></i>
-                    <i
-                      className="fa fa-cc-discover"
-                      style={{ color: "orange", marginRight: 6 }}
-                    ></i>
-                  </div>
-                  <label>Name on Card</label>
-                  <input
-                    type="text"
-                    name="cardname"
-                    value={formData.cardname}
-                    onChange={handleChange}
-                    placeholder="John More Doe"
-                    required
-                  />
-                  <label>Credit card number</label>
-                  <input
-                    type="text"
-                    name="cardnumber"
-                    value={formData.cardnumber}
-                    onChange={handleChange}
-                    placeholder="1111-2222-3333-4444"
-                    required
-                  />
-                  <label>Exp Month</label>
-                  <input
-                    type="text"
-                    name="expmonth"
-                    value={formData.expmonth}
-                    onChange={handleChange}
-                    placeholder="September"
-                    required
-                  />
-                  <div className="row">
-                    <div className="col-50">
-                      <label>Exp Year</label>
-                      <input
-                        type="text"
-                        name="expyear"
-                        value={formData.expyear}
-                        onChange={handleChange}
-                        placeholder="2025"
-                        required
-                      />
-                    </div>
-                    <div className="col-50">
-                      <label>CVV</label>
-                      <input
-                        type="text"
-                        name="cvv"
-                        value={formData.cvv}
-                        onChange={handleChange}
-                        placeholder="352"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div> */}
               </div>
+              <h3>Shipping Address</h3>
+              {defaultAddressId ? (
+                <p>Using your default address for shipping.</p>
+              ) : (
+                <p>No default address found. Please set one in your profile.</p>
+              )}
               <label>
                 <input
                   type="checkbox"

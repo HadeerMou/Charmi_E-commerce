@@ -12,6 +12,7 @@ function CategoryPage({
   showProducts,
   products,
   addToCart,
+  totalQuantity,
 }) {
   return (
     <>
@@ -19,6 +20,7 @@ function CategoryPage({
         toggleProductsVisibility={toggleProductsVisibility}
         toggleCartVisibility={toggleCartVisibility}
         cart={cart}
+        totalQuantity={totalQuantity}
       />
       <ProductList products={products} addToCart={addToCart} />
       <Footer />

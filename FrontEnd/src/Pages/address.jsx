@@ -46,7 +46,7 @@ export default function Address({ addressId }) {
       console.log("User ID Type:", typeof userId, "Value:", userId);
 
       const response = await axios.get(
-        `http://localhost:3000/address/user/${userId}`,
+        `http://auth-db942.hstgr.io:3306/address/user/${userId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -71,7 +71,7 @@ export default function Address({ addressId }) {
 
       // Create the address
       const response = await axios.post(
-        "http://localhost:3000/address",
+        "http://auth-db942.hstgr.io:3306/address",
         newAddress,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -83,14 +83,14 @@ export default function Address({ addressId }) {
 
       // Fetch user addresses to check if it's the first one
       const userAddressesResponse = await axios.get(
-        `http://localhost:3000/address/user/${userId}`,
+        `http://auth-db942.hstgr.io:3306/address/user/${userId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       if (userAddressesResponse.data.length === 1) {
         // If this is the first address, set it as default
         await axios.post(
-          `http://localhost:3000/address/user/${userId}/default/${createdAddress.id}`,
+          `http://auth-db942.hstgr.io:3306/address/user/${userId}/default/${createdAddress.id}`,
           {},
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -119,7 +119,7 @@ export default function Address({ addressId }) {
       }
 
       await axios.put(
-        `http://localhost:3000/address/${addressId}`,
+        `http://auth-db942.hstgr.io:3306/address/${addressId}`,
         newAddress,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -142,7 +142,7 @@ export default function Address({ addressId }) {
       }
 
       await axios.post(
-        `http://localhost:3000/address/user/${userId}/default/${addressId}`,
+        `http://auth-db942.hstgr.io:3306/address/user/${userId}/default/${addressId}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -162,9 +162,12 @@ export default function Address({ addressId }) {
         return;
       }
 
-      await axios.delete(`http://localhost:3000/address/${addressId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `http://auth-db942.hstgr.io:3306/address/${addressId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       // Remove deleted address from state
       setAddresses(addresses.filter((address) => address.id !== addressId));
@@ -176,7 +179,9 @@ export default function Address({ addressId }) {
 
   const fetchCities = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/cities");
+      const response = await axios.get(
+        "http://auth-db942.hstgr.io:3306/cities"
+      );
       setCities(response.data);
     } catch (error) {
       console.error("Error fetching cities:", error);
@@ -185,7 +190,9 @@ export default function Address({ addressId }) {
 
   const fetchCountries = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/country");
+      const response = await axios.get(
+        "http://auth-db942.hstgr.io:3306/country"
+      );
       setCountries(response.data);
     } catch (error) {
       console.error("Error fetching countries:", error);
@@ -195,7 +202,7 @@ export default function Address({ addressId }) {
   const fetchDistricts = async (cityId) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/district/by-city/${cityId}`
+        `http://auth-db942.hstgr.io:3306/district/by-city/${cityId}`
       );
       setDistricts(response.data);
     } catch (error) {
@@ -259,8 +266,7 @@ export default function Address({ addressId }) {
                         name="cityId"
                         value={newAddress.cityId}
                         onChange={handleChange}
-                        required
-                      >
+                        required>
                         <option value="">Select City</option>
                         {cities.map((city) => (
                           <option key={city.id} value={city.id}>
@@ -275,8 +281,7 @@ export default function Address({ addressId }) {
                         name="countryId"
                         value={newAddress.countryId}
                         onChange={handleChange}
-                        required
-                      >
+                        required>
                         <option value="">Select Country</option>
                         {countries.map((country) => (
                           <option key={country.id} value={country.id}>
@@ -291,14 +296,12 @@ export default function Address({ addressId }) {
                         name="districtId"
                         value={newAddress.districtId}
                         onChange={handleChange}
-                        required
-                      >
+                        required>
                         <option value="">Select District</option>
                         {districts.map((district) => (
                           <option
                             key={district.district_id}
-                            value={district.district_id}
-                          >
+                            value={district.district_id}>
                             {district.districtName}
                           </option>
                         ))}

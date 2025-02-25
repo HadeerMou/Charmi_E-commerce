@@ -42,7 +42,7 @@ function Dshproducts() {
   const fetchProductImage = async (productId) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/product-images/product/${productId}`
+        `http://auth-db942.hstgr.io:3306/product-images/product/${productId}`
       );
       console.log(
         `API Response for product ${productId}:`,
@@ -62,7 +62,7 @@ function Dshproducts() {
   const fetchProductImages = async (productId) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/product-images/product/${productId}`
+        `http://auth-db942.hstgr.io:3306/product-images/product/${productId}`
       );
       console.log(
         `API Response for product ${productId}:`,
@@ -79,12 +79,14 @@ function Dshproducts() {
   // Fetch all products and attach images
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/products");
+      const response = await axios.get(
+        "http://auth-db942.hstgr.io:3306/products"
+      );
 
       if (response.data && response.data.length > 0) {
         const productsWithImage = await Promise.all(
           response.data.map(async (product) => {
-            const imageUrl = await fetchProductImage(product.id);
+            const imageUrl = await fetchProductImages(product.id);
             return {
               ...product,
               imageUrl: imageUrl || "/path/to/default/image.jpg",
@@ -113,7 +115,7 @@ function Dshproducts() {
 
       // Step 1: Create the Product First (send as JSON, map imageFile to image)
       const productResponse = await axios.post(
-        "http://localhost:3000/products",
+        "http://auth-db942.hstgr.io:3306/products",
         {
           name: newProduct.name,
           description: newProduct.description,
@@ -142,7 +144,7 @@ function Dshproducts() {
 
         // Send the image data to the product-images endpoint
         await axios.post(
-          "http://localhost:3000/product-images", // Make sure this is the correct endpoint for image upload
+          "http://auth-db942.hstgr.io:3306/product-images", // Make sure this is the correct endpoint for image upload
           imageFormData,
           {
             headers: {
@@ -174,9 +176,12 @@ function Dshproducts() {
   const handleDelete = async (productId) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3000/products/${productId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `http://auth-db942.hstgr.io:3306/products/${productId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       setProducts(products.filter((product) => product.id !== productId));
     } catch (error) {
@@ -188,9 +193,12 @@ function Dshproducts() {
   const handleDeleteImage = async (imageId) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3000/product-images/${imageId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `http://auth-db942.hstgr.io:3306/product-images/${imageId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       fetchProducts();
     } catch (error) {
@@ -227,7 +235,7 @@ function Dshproducts() {
 
       // Step 1: Update Product (map imageFile to image)
       await axios.put(
-        `http://localhost:3000/products/${editingProduct.id}`,
+        `http://auth-db942.hstgr.io:3306/products/${editingProduct.id}`,
         formattedUpdatedProduct,
         {
           headers: {
@@ -280,8 +288,7 @@ function Dshproducts() {
                         navigate(
                           `/dashboard/products/productdetails/${products.id}`
                         )
-                      }
-                    >
+                      }>
                       <td>
                         <i class="fa-regular fa-square"></i>
                       </td>
@@ -306,8 +313,7 @@ function Dshproducts() {
                           onClick={(e) => {
                             e.stopPropagation();
                             handleEditClick(products);
-                          }}
-                        >
+                          }}>
                           Edit
                         </button>
                         <button
@@ -315,8 +321,7 @@ function Dshproducts() {
                           onClick={(e) => {
                             e.stopPropagation();
                             handleDelete(products.id);
-                          }}
-                        >
+                          }}>
                           {translations.delete}
                         </button>
                       </td>
@@ -328,8 +333,7 @@ function Dshproducts() {
             <div className="toaddproduct">
               <button
                 className="addprod"
-                onClick={() => setShowCreateProduct(!showCreateProduct)}
-              >
+                onClick={() => setShowCreateProduct(!showCreateProduct)}>
                 {showCreateProduct ? "Close" : `${translations.addprod}`}
               </button>
             </div>

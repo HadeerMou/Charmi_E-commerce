@@ -3,7 +3,6 @@ import Categories from "../Components/categories";
 import Footer from "../Components/footer";
 import Header from "../Components/header";
 import HomeGrid from "../Components/HomeGrid";
-import ProductList from "../Components/ProductList";
 import Products from "../Components/products";
 
 function Home({
@@ -11,7 +10,6 @@ function Home({
   toggleCartVisibility,
   cart,
   showProducts,
-  products,
   addToCart,
   totalQuantity,
 }) {

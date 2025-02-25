@@ -11,6 +11,7 @@ export default function Contact({
   toggleProductsVisibility,
   cart,
   showProducts,
+  totalQuantity,
 }) {
   const { translations } = useTranslation();
   const [isCommentVisible, setIsCommentVisible] = useState(false);
@@ -21,6 +22,7 @@ export default function Contact({
         toggleProductsVisibility={toggleProductsVisibility}
         toggleCartVisibility={toggleCartVisibility}
         cart={cart}
+        totalQuantity={totalQuantity}
       />
       <Products showProducts={showProducts} />
       <div class="entry">

@@ -29,7 +29,9 @@ function DshCategories() {
   // Fetch all categorys
   const fetchCategorys = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/category`);
+      const response = await axios.get(
+        `http://auth-db942.hstgr.io:3306/category`
+      );
       setCategory(response.data);
       console.log("catt", response);
     } catch (error) {
@@ -40,7 +42,9 @@ function DshCategories() {
   // Fetch category by ID
   const fetchCategoryById = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3000/category/${id}`);
+      const response = await axios.get(
+        `http://auth-db942.hstgr.io:3306/category/${id}`
+      );
       console.log("Fetched Categories:", response.data); // Debugging
 
       console.log(response.data); // Handle the fetched category data
@@ -59,7 +63,7 @@ function DshCategories() {
         formData.append("imageFile", newCategory.imageFile);
       }
       const response = await axios.post(
-        "http://localhost:3000/category",
+        "http://auth-db942.hstgr.io:3306/category",
         formData,
         {
           headers: {
@@ -84,7 +88,7 @@ function DshCategories() {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
-      await axios.delete(`http://localhost:3000/category/${id}`, {
+      await axios.delete(`http://auth-db942.hstgr.io:3306/category/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Include authentication token
         },
@@ -107,9 +111,9 @@ function DshCategories() {
     if (!editingCategory) return;
     try {
       const token = localStorage.getItem("token");
-  
+
       const response = await axios.put(
-        `http://localhost:3000/category/${editingCategory.id}`,
+        `http://auth-db942.hstgr.io:3306/category/${editingCategory.id}`,
         { name: updatedCategory.name }, // Send only the name as JSON
         {
           headers: {
@@ -118,7 +122,7 @@ function DshCategories() {
           },
         }
       );
-  
+
       setCategory(
         category.map((cat) =>
           cat.id === editingCategory.id ? response.data : cat
@@ -129,7 +133,6 @@ function DshCategories() {
       console.error("Error updating category:", error.response?.data || error);
     }
   };
-  
 
   const handleFileChange = (e, type) => {
     const file = e.target.files[0];

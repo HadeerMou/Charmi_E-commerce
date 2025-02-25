@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useCurrency } from "../CurrencyContext";
 import axios from "axios";
 
-function ProductList({ fetchUserCart, addToCart }) {
+function ProductList({ addToCart }) {
   const { translations } = useTranslation();
   const navigate = useNavigate();
   const { selectedCurrency, convertAmount } = useCurrency();
@@ -21,7 +21,10 @@ function ProductList({ fetchUserCart, addToCart }) {
     const fetchProducts = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:3000/products", {});
+        const response = await axios.get(
+          "http://auth-db942.hstgr.io:3306/products",
+          {}
+        );
 
         console.log("Category ID:", categoryId);
 
@@ -35,7 +38,7 @@ function ProductList({ fetchUserCart, addToCart }) {
           const productsWithImages = await Promise.all(
             filteredProducts.map(async (product) => {
               const imageResponse = await axios.get(
-                `http://localhost:3000/product-images/product/${product.id}`
+                `http://auth-db942.hstgr.io:3306/product-images/product/${product.id}`
               );
 
               const imageUrl =
@@ -101,8 +104,7 @@ function ProductList({ fetchUserCart, addToCart }) {
                   className="addtocart"
                   onClick={() => {
                     addToCart(product);
-                  }}
-                >
+                  }}>
                   {translations.addtocart}
                 </button>
               </div>

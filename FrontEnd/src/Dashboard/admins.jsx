@@ -36,9 +36,12 @@ function AdminPage() {
         return;
       }
 
-      const response = await axios.get("http://localhost:3000/admins", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        "http://auth-db942.hstgr.io:3306/admins",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       console.log("Admins API Response:", response.data); // Debugging line
 
@@ -54,7 +57,9 @@ function AdminPage() {
   // Fetch user by ID
   const fetchAdminById = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3000/admins/${id}`);
+      const response = await axios.get(
+        `http://auth-db942.hstgr.io:3306/admins/${id}`
+      );
       console.log(response.data); // Handle the fetched admin data
     } catch (error) {
       console.error("Error fetching admin by ID:", error);
@@ -67,7 +72,7 @@ function AdminPage() {
       const token = localStorage.getItem("token"); // Retrieve token if stored in localStorage
 
       const response = await axios.post(
-        "http://localhost:3000/admins",
+        "http://auth-db942.hstgr.io:3306/admins",
         newAdmin,
         {
           headers: {
@@ -94,7 +99,7 @@ function AdminPage() {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
-      await axios.delete(`http://localhost:3000/admins/${id}`, {
+      await axios.delete(`http://auth-db942.hstgr.io:3306/admins/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Include authentication token
         },
@@ -117,7 +122,7 @@ function AdminPage() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       const response = await axios.put(
-        `http://localhost:3000/admins/${editingAdmin.id}`,
+        `http://auth-db942.hstgr.io:3306/admins/${editingAdmin.id}`,
         updatedAdmin,
         {
           headers: {

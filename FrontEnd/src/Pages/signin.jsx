@@ -15,7 +15,7 @@ function Signin({ userType }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/login",
+        "http://auth-db942.hstgr.io:3306/auth/login",
         { email, password },
         {
           headers: {
@@ -35,7 +35,7 @@ function Signin({ userType }) {
       // Fetch user profile to get the user ID
       if (userType !== "ADMIN") {
         const profileResponse = await axios.get(
-          "http://localhost:3000/users/profile",
+          "http://auth-db942.hstgr.io:3306/users/profile",
           {
             headers: {
               Authorization: `Bearer ${token}`,

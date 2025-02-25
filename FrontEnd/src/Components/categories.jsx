@@ -18,10 +18,10 @@ function Categories({ addToCart }) {
     const fetchCategoriesAndProducts = async () => {
       try {
         const categoryResponse = await axios.get(
-          "http://localhost:3000/category"
+          "http://auth-db942.hstgr.io:3306/category"
         );
         const productResponse = await axios.get(
-          "http://localhost:3000/products"
+          "http://auth-db942.hstgr.io:3306/products"
         );
 
         if (categoryResponse.data && productResponse.data) {
@@ -38,7 +38,7 @@ function Categories({ addToCart }) {
             const productsWithImages = await Promise.all(
               filteredProducts.map(async (product) => {
                 const imageResponse = await axios.get(
-                  `http://localhost:3000/product-images/product/${product.id}`
+                  `http://auth-db942.hstgr.io:3306/product-images/product/${product.id}`
                 );
 
                 const imageUrl =

@@ -1,4 +1,5 @@
 /*HEADER*/
+
 .logo {
   will-change: filter;
   transition: filter 300ms;
@@ -38,6 +39,7 @@ a {
 .icon-cart {
   position: relative;
   cursor: pointer;
+  margin-right: 15px;
 }
 .icon-cart span {
   position: absolute;
@@ -62,4 +64,30 @@ a {
 .links a {
   font-weight: bold;
   cursor: pointer;
+}
+.logout {
+  border-radius: 30px;
+  padding: 5px 15px;
+  background-color: rgb(196, 33, 33);
+  border: rgb(170, 20, 20) solid;
+  color: white;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+@media (max-width: 450px) {
+  .links {
+    font-size: 10px;
+  }
+  .lang {
+    font-size: 10px;
+  }
+  .logout {
+    font-size: 8px;
+    font-weight: 500;
+    padding: 5px 15px;
+  }
+  .curr {
+    font-size: 10px;
+  }
 }

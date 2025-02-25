@@ -30,7 +30,6 @@ img:hover {
   width: 60%;
   height: auto;
   margin: 20px 0px 0px 0px;
-  background-color: red;
 }
 .bigImg img {
   width: 100%;
@@ -147,5 +146,34 @@ img:hover {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: none;
+  }
+}
+@media (max-width: 450px) {
+  .topcontainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: auto auto;
+    padding: 0px;
+    align-items: center;
+    padding-bottom: 5%;
+  }
+  .topcontainer .im {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+  .topcontainer .bigImg {
+    width: 100%;
+    align-items: center;
+    margin: auto auto;
+  }
+  .topcontainer .bigImg img {
+    height: 500px;
+    width: 500px;
+  }
+  .im img {
+    width: 100px;
+    height: 100px;
   }
 }

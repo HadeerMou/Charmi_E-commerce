@@ -11,7 +11,7 @@ export default function Products({ showProducts }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/category")
+      .get("http://auth-db942.hstgr.io:3306/category")
       .then((response) => {
         setCategories(response.data);
       })
@@ -28,8 +28,7 @@ export default function Products({ showProducts }) {
             {categories.map((category) => (
               <div
                 key={category.id}
-                className="col d-flex flex-column mb-3 w-25"
-              >
+                className="col d-flex flex-column mb-3 w-25">
                 <a className="text-decoration-none text-dark">
                   <div
                     className="box"
@@ -40,8 +39,7 @@ export default function Products({ showProducts }) {
                           categoryName: category.name,
                         },
                       })
-                    }
-                  >
+                    }>
                     <div className="boximg">
                       {category.imagePath ? (
                         <img

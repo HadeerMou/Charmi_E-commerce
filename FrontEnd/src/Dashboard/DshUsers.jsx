@@ -37,9 +37,12 @@ function DshUsers() {
         return;
       }
 
-      const response = await axios.get("http://localhost:3000/users", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        "http://auth-db942.hstgr.io:3306/users",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       console.log("Fetched users data:", response.data.dat); // Debugging line
 
@@ -55,7 +58,9 @@ function DshUsers() {
   // Fetch user by ID
   const fetchUserById = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3000/users/${id}`);
+      const response = await axios.get(
+        `http://auth-db942.hstgr.io:3306/users/${id}`
+      );
       console.log(response.data); // Handle the fetched user data
     } catch (error) {
       console.error("Error fetching user by ID:", error);
@@ -68,7 +73,7 @@ function DshUsers() {
       const token = localStorage.getItem("token"); // Retrieve token if stored in localStorage
 
       const response = await axios.post(
-        "http://localhost:3000/users",
+        "http://auth-db942.hstgr.io:3306/users",
         newUser,
         {
           headers: {
@@ -97,7 +102,7 @@ function DshUsers() {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
-      await axios.delete(`http://localhost:3000/users/${id}`, {
+      await axios.delete(`http://auth-db942.hstgr.io:3306/users/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Include authentication token
         },
@@ -120,7 +125,7 @@ function DshUsers() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       const response = await axios.put(
-        `http://localhost:3000/users/${editingUser.id}`,
+        `http://auth-db942.hstgr.io:3306/users/${editingUser.id}`,
         updatedUser,
         {
           headers: {

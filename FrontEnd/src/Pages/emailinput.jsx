@@ -30,9 +30,9 @@ function EmailInput() {
       let apiEndpoint = "";
 
       if (isVerification) {
-        apiEndpoint = "http://localhost:3000/auth/sendotp";
+        apiEndpoint = "http://auth-db942.hstgr.io:3306/auth/sendotp";
       } else if (isForgotPassword) {
-        apiEndpoint = "http://localhost:3000/auth/forget";
+        apiEndpoint = "http://auth-db942.hstgr.io:3306/auth/forget";
       }
 
       if (!apiEndpoint) {

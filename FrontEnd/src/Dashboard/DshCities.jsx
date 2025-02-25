@@ -31,7 +31,9 @@ function DshCities() {
   // Fetch all citys
   const fetchCities = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/cities`);
+      const response = await axios.get(
+        `http://auth-db942.hstgr.io:3306/cities`
+      );
       console.log("Fetched Cities:", response.data); // Debugging
       setCity(response.data);
     } catch (error) {
@@ -42,7 +44,9 @@ function DshCities() {
   // Fetch city by ID
   const fetchCityById = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3000/cities/${id}`);
+      const response = await axios.get(
+        `http://auth-db942.hstgr.io:3306/cities/${id}`
+      );
       console.log(response.data); // Handle the fetched city data
     } catch (error) {
       console.error("Error fetching city by ID:", error);
@@ -60,7 +64,7 @@ function DshCities() {
       };
 
       const response = await axios.post(
-        "http://localhost:3000/cities",
+        "http://auth-db942.hstgr.io:3306/cities",
         formattedCity,
         {
           headers: {
@@ -87,7 +91,7 @@ function DshCities() {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
-      await axios.delete(`http://localhost:3000/cities/${id}`, {
+      await axios.delete(`http://auth-db942.hstgr.io:3306/cities/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Include authentication token
         },
@@ -110,7 +114,7 @@ function DshCities() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       const response = await axios.put(
-        `http://localhost:3000/cities/${editingCity.id}`,
+        `http://auth-db942.hstgr.io:3306/cities/${editingCity.id}`,
         updatedCity,
         {
           headers: {

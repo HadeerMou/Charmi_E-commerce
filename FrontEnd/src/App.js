@@ -44,9 +44,12 @@ function App() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]); // State for cart items
   const [isCartVisible, setIsCartVisible] = useState(false);
-  const [totalQuantity, setTotalQuantity] = useState(0);
-
   const [isLoading, setIsLoading] = useState(false); // State to track loading status
+
+  const totalQuantity = cart.reduce(
+    (acc, item) => acc + (item.quantity || 0),
+    0
+  );
 
   // Toggle cart visibility
   const toggleCartVisibility = () => {
@@ -67,7 +70,9 @@ function App() {
   const fetchProducts = async () => {
     try {
       setIsLoading(true); // ✅ Set loading before fetching
-      const response = await axios.get("http://localhost:3000/products");
+      const response = await axios.get(
+        "http://auth-db942.hstgr.io:3306/products"
+      );
       setProducts(response.data);
       setIsLoading(false); // ✅ Set loading false after success
     } catch (error) {
@@ -79,7 +84,7 @@ function App() {
   const fetchUserCart = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3000/cart", {
+      const response = await axios.get("http://auth-db942.hstgr.io:3306/cart", {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log("Fetched Cart Data:", response.data); // 🔹 See if API returns data
@@ -101,7 +106,7 @@ function App() {
       console.log("Token before adding to cart:", token);
 
       const response = await axios.post(
-        "http://localhost:3000/cart-items",
+        "http://auth-db942.hstgr.io:3306/cart-items",
         { productId: product.id, quantity: 1 },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -120,25 +125,6 @@ function App() {
   useEffect(() => {
     console.log("Updated cart:", cart);
   }, [cart]);
-
-  // Change product quantity in cart
-  const changeQuantityInCart = (productId, type) => {
-    setCart((prevCart) => {
-      const updatedCart = [...prevCart];
-      const index = updatedCart.findIndex((item) => item.id === productId); // Use `id` here for consistency
-      if (index >= 0) {
-        if (type === "plus") {
-          updatedCart[index].quantity += 1;
-        } else if (type === "minus") {
-          updatedCart[index].quantity -= 1;
-          if (updatedCart[index].quantity <= 0) {
-            updatedCart.splice(index, 1);
-          }
-        }
-      }
-      return updatedCart;
-    });
-  };
 
   const [showProducts, setShowProducts] = useState(true); // State to control product visibility
 
@@ -174,6 +160,7 @@ function App() {
                 toggleCartVisibility={toggleCartVisibility}
                 toggleProductsVisibility={toggleProductsVisibility}
                 cart={cart}
+                totalQuantity={totalQuantity}
               />
             }
           />
@@ -185,6 +172,7 @@ function App() {
                 toggleCartVisibility={toggleCartVisibility}
                 toggleProductsVisibility={toggleProductsVisibility}
                 cart={cart}
+                totalQuantity={totalQuantity}
               />
             }
           />
@@ -199,6 +187,7 @@ function App() {
                 toggleCartVisibility={toggleCartVisibility}
                 toggleProductsVisibility={toggleProductsVisibility}
                 addToCart={addToCart}
+                totalQuantity={totalQuantity}
               />
             }
           />
@@ -210,6 +199,8 @@ function App() {
                 toggleCartVisibility={toggleCartVisibility}
                 toggleProductsVisibility={toggleProductsVisibility}
                 showProducts={showProducts}
+                addToCart={addToCart}
+                totalQuantity={totalQuantity}
               />
             }
           />
@@ -222,6 +213,7 @@ function App() {
                 toggleProductsVisibility={toggleProductsVisibility}
                 cart={cart}
                 products={products}
+                totalQuantity={totalQuantity}
               />
             }
           />
@@ -271,7 +263,7 @@ function App() {
             isCartVisible={isCartVisible}
             products={products}
             fetchUserCart={fetchUserCart}
-            setTotalQuantity={setTotalQuantity}
+            totalQuantity={totalQuantity}
           />
         )}
         <productList addToCart={addToCart} fetchUserCart={fetchUserCart} />

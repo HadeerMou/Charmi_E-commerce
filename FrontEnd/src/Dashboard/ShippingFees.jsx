@@ -44,7 +44,7 @@ function ShippingFees() {
       const fee = updatedFees[cityId];
 
       await axios.put(
-        `http://localhost:3000/shipping-fees`,
+        `http://auth-db942.hstgr.io:3306/shipping-fees`,
         { city_id: cityId, fee: parseInt(fee) },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -65,7 +65,7 @@ function ShippingFees() {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:3000/shipping-fees",
+        "http://auth-db942.hstgr.io:3306/shipping-fees",
         { city_id: parseInt(newFee.cityId), fee: parseInt(newFee.fee) },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -80,9 +80,12 @@ function ShippingFees() {
   const handleDeleteFee = async (cityId) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3000/shipping-fees/${cityId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `http://auth-db942.hstgr.io:3306/shipping-fees/${cityId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       setCity((prevCities) =>
         prevCities.map((city) =>
@@ -98,9 +101,11 @@ function ShippingFees() {
 
   const fetchCities = async () => {
     try {
-      const citiesResponse = await axios.get("http://localhost:3000/cities");
+      const citiesResponse = await axios.get(
+        "http://auth-db942.hstgr.io:3306/cities"
+      );
       const shippingResponse = await axios.get(
-        "http://localhost:3000/shipping-fees"
+        "http://auth-db942.hstgr.io:3306/shipping-fees"
       );
 
       // Merge cities with their shipping fees
@@ -120,7 +125,9 @@ function ShippingFees() {
   // Fetch city by ID
   const fetchCityById = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3000/cities/${id}`);
+      const response = await axios.get(
+        `http://auth-db942.hstgr.io:3306/cities/${id}`
+      );
       console.log(response.data); // Handle the fetched city data
     } catch (error) {
       console.error("Error fetching city by ID:", error);
@@ -138,7 +145,7 @@ function ShippingFees() {
       };
 
       const response = await axios.post(
-        "http://localhost:3000/cities",
+        "http://auth-db942.hstgr.io:3306/cities",
         formattedCity,
         {
           headers: {
@@ -165,7 +172,7 @@ function ShippingFees() {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
-      await axios.delete(`http://localhost:3000/cities/${id}`, {
+      await axios.delete(`http://auth-db942.hstgr.io:3306/cities/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Include authentication token
         },
@@ -188,7 +195,7 @@ function ShippingFees() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       const response = await axios.put(
-        `http://localhost:3000/cities/${editingCity.id}`,
+        `http://auth-db942.hstgr.io:3306/cities/${editingCity.id}`,
         updatedCity,
         {
           headers: {

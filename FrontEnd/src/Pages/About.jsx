@@ -10,6 +10,7 @@ export default function About({
   toggleCartVisibility,
   toggleProductsVisibility,
   cart,
+  totalQuantity,
 }) {
   const { translations } = useTranslation();
   return (
@@ -18,6 +19,7 @@ export default function About({
         toggleProductsVisibility={toggleProductsVisibility}
         toggleCartVisibility={toggleCartVisibility}
         cart={cart}
+        totalQuantity={totalQuantity}
       />
       <Products showProducts={showProducts} />
       <section class="aboutcontent">

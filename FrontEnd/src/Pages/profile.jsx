@@ -6,12 +6,15 @@ import Footer from "../Components/footer";
 import { useTranslation } from "../TranslationContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useOrders from "../Hooks/useOrders";
+import useProducts from "../Hooks/useProducts";
 
 function Profile({
   toggleCartVisibility,
   toggleProductsVisibility,
   cart,
   showProducts,
+  totalQuantity,
 }) {
   const { translations } = useTranslation();
   const [visibleDiv, setVisibleDiv] = useState("first"); // "first" or "second"
@@ -19,6 +22,16 @@ function Profile({
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [userAddress, setUserAddress] = useState(null);
+  const [selectedOrder, setSelectedOrder] = useState(null); // Store selected order
+  const { products, fetchProductDetails } = useProducts();
+  const { orders, fetchOrders } = useOrders();
+
+  // Fetch product details when orders are available
+  useEffect(() => {
+    if (Array.isArray(orders) && orders.length > 0) {
+      fetchProductDetails(orders);
+    }
+  }, [orders]); // Runs whenever `orders` change
 
   // Retrieve address from local storage on component mount
   useEffect(() => {
@@ -33,7 +46,7 @@ function Profile({
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "http://localhost:3000/users/profile",
+          "http://auth-db942.hstgr.io:3306/users/profile",
           {
             headers: {
               Authorization: `Bearer ${token}`, // Attach token for authentication
@@ -47,6 +60,8 @@ function Profile({
       }
     };
     fetchProfile();
+    fetchOrders(); // Fetch orders when the profile is loaded
+    fetchProductDetails();
   }, []);
 
   return (
@@ -55,6 +70,7 @@ function Profile({
         toggleProductsVisibility={toggleProductsVisibility}
         toggleCartVisibility={toggleCartVisibility}
         cart={cart}
+        totalQuantity={totalQuantity}
       />
       <Products showProducts={showProducts} />
       <div class="mycontent">
@@ -63,9 +79,6 @@ function Profile({
       <div className="profile">
         <div class="left">
           <div class="lists">
-            <div class="image">
-              <img src="" alt="" />
-            </div>
             <div class="username">
               <h2>{userData?.username}</h2>
               <h3>{userData?.email}</h3>
@@ -74,15 +87,13 @@ function Profile({
               <ul>
                 <li
                   onClick={() => setVisibleDiv("first")}
-                  className="personalinfo"
-                >
+                  className="personalinfo">
                   {translations.personalinfo}
                 </li>
                 {/* <li className="billing">{translations.billing}</li> */}
                 <li
                   onClick={() => setVisibleDiv("second")}
-                  className="ordersname"
-                >
+                  className="ordersname">
                   {translations.ordersname}
                 </li>
               </ul>
@@ -91,8 +102,7 @@ function Profile({
         </div>
         <div
           className="persinfo"
-          style={{ display: visibleDiv === "first" ? "block" : "none" }}
-        >
+          style={{ display: visibleDiv === "first" ? "block" : "none" }}>
           <div className="infos">
             <h5 className="username">{translations.username}</h5>
             <p className="profdata">
@@ -118,8 +128,7 @@ function Profile({
             <h5 className="password">{translations.password}</h5>
             <button
               className="changpass"
-              onClick={() => navigate("/forgot-password")}
-            >
+              onClick={() => navigate("/forgot-password")}>
               {translations.changpass}
             </button>
           </div>
@@ -132,87 +141,87 @@ function Profile({
                 : "No address found"}
               <i
                 class="fa-solid fa-pen-to-square"
-                onClick={() => navigate("/profile/address")}
-              ></i>
+                onClick={() => navigate("/profile/address")}></i>
             </p>
           </div>
         </div>
-        {/*         <div
+        <div
           className="ordersinfo"
-          style={{ display: visibleDiv === "second" ? "block" : "none" }}
-        >
-          <div class="head">
-            <h1 className="ordersname">{translations.ordersname}</h1>
+          style={{ display: visibleDiv === "second" ? "block" : "none" }}>
+          <div className="head">
+            <h1 className="ordersname">Your Orders</h1>
           </div>
-          <a>
-            <div class="ordersContainer">
-              <div class="orderno">
-                <h3 className="text-muted">#3475</h3>
-              </div>
-              <div class="img">
-                <img src="/assets/bedside.png" alt="" />
-              </div>
 
-              <div class="orderprice">
-                <p class="text-muted">2500Egp</p>
+          {orders.length === 0 ? (
+            <p>No orders found.</p>
+          ) : (
+            orders.map((order) => (
+              <div
+                key={order.id}
+                className="ordersContainer"
+                onClick={() => setSelectedOrder(order)}>
+                <div className="orderno">
+                  <h3 className="text-muted">Order #{order.id}</h3>
+                </div>
+                <div className="orderprice">
+                  <p className="text-muted">Total: {order.total} EGP</p>
+                </div>
+                <div className="no">
+                  <p className="text-muted">
+                    Time: {new Date(order.createdAt).toLocaleString()}
+                  </p>
+                </div>
               </div>
-              <div class="no">
-                <p class="text-muted">11:40PM</p>
-              </div>
-            </div>
-          </a>
-          <a>
-            <div class="ordersContainer">
-              <div class="orderno">
-                <h3 className="text-muted">#3475</h3>
-              </div>
-              <div class="img">
-                <img src="/assets/bedside.png" alt="" />
-              </div>
+            ))
+          )}
 
-              <div class="orderprice">
-                <p class="text-muted">2500Egp</p>
-              </div>
-              <div class="no">
-                <p class="text-muted">11:40PM</p>
-              </div>
-            </div>
-          </a>
-          <a>
-            <div class="ordersContainer">
-              <div class="orderno">
-                <h3 className="text-muted">#3475</h3>
-              </div>
-              <div class="img">
-                <img src="/assets/bedside.png" alt="" />
-              </div>
+          {selectedOrder && (
+            <div className="orderDetails">
+              <h2>Order #{selectedOrder.id} Details</h2>
+              <p>
+                <strong>Total Price:</strong> {selectedOrder.total} EGP
+              </p>
+              <p>
+                <strong>Order Date:</strong>{" "}
+                {new Date(selectedOrder.createdAt).toLocaleString()}
+              </p>
+              {selectedOrder.orderItems.map((item) => {
+                const product = products[item.productId];
+                const imageUrl = product?.productImages?.[0]?.imagePath;
 
-              <div class="orderprice">
-                <p class="text-muted">2500Egp</p>
-              </div>
-              <div class="no">
-                <p class="text-muted">11:40PM</p>
-              </div>
+                return (
+                  <div key={item.id} className="orderItem">
+                    {imageUrl ? (
+                      <img
+                        src={`https://${imageUrl}`}
+                        alt={product?.name}
+                        className="product-img"
+                      />
+                    ) : (
+                      <p>No image available</p>
+                    )}
+                    <div>
+                      <p>
+                        <strong>Product:</strong> {product?.name || "Unknown"}
+                      </p>
+                      <p>
+                        <strong>Quantity:</strong> {item.quantity}
+                      </p>
+                      <p>
+                        <strong>Price:</strong> {item.price} EGP
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+              <button
+                onClick={() => setSelectedOrder(null)}
+                className="close-btn">
+                Close
+              </button>
             </div>
-          </a>
-          <a>
-            <div class="ordersContainer">
-              <div class="orderno">
-                <h3 className="text-muted">#3475</h3>
-              </div>
-              <div class="img">
-                <img src="/assets/bedside.png" alt="" />
-              </div>
-
-              <div class="orderprice">
-                <p class="text-muted">2500Egp</p>
-              </div>
-              <div class="no">
-                <p class="text-muted">11:40PM</p>
-              </div>
-            </div>
-          </a>
-        </div> */}
+          )}
+        </div>
       </div>
 
       <Footer />

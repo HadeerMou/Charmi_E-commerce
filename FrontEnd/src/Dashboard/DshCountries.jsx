@@ -30,7 +30,9 @@ function DshCountries() {
   // Fetch all Countrys
   const fetchCities = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/country`);
+      const response = await axios.get(
+        `http://auth-db942.hstgr.io:3306/country`
+      );
       setCountry(response.data);
     } catch (error) {
       console.error("Error fetching Countrys:", error);
@@ -40,7 +42,9 @@ function DshCountries() {
   // Fetch Country by ID
   const fetchCountryById = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3000/country/${id}`);
+      const response = await axios.get(
+        `http://auth-db942.hstgr.io:3306/country/${id}`
+      );
       console.log(response.data); // Handle the fetched Country data
     } catch (error) {
       console.error("Error fetching Country by ID:", error);
@@ -53,7 +57,7 @@ function DshCountries() {
       const token = localStorage.getItem("token"); // Retrieve token if stored in localStorage
 
       const response = await axios.post(
-        "http://localhost:3000/country",
+        "http://auth-db942.hstgr.io:3306/country",
         newCountry,
         {
           headers: {
@@ -76,7 +80,7 @@ function DshCountries() {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
-      await axios.delete(`http://localhost:3000/country/${id}`, {
+      await axios.delete(`http://auth-db942.hstgr.io:3306/country/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Include authentication token
         },
@@ -99,7 +103,7 @@ function DshCountries() {
     try {
       const token = localStorage.getItem("token"); // Get token from storage
       const response = await axios.put(
-        `http://localhost:3000/country/${editingCountry.id}`,
+        `http://auth-db942.hstgr.io:3306/country/${editingCountry.id}`,
         updatedCountry,
         {
           headers: {

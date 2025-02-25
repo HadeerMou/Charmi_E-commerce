@@ -21,9 +21,12 @@ function DshOrders() {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem("token"); // Get token if authentication is needed
-      const response = await axios.get("http://localhost:3000/orders/all", {
-        headers: { Authorization: `Bearer ${token}` }, // Include token in request
-      });
+      const response = await axios.get(
+        "http://auth-db942.hstgr.io:3306/orders/all",
+        {
+          headers: { Authorization: `Bearer ${token}` }, // Include token in request
+        }
+      );
 
       console.log("Orders Data:", response.data); // Check API response
 
@@ -49,9 +52,12 @@ function DshOrders() {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem("token"); // Get token if authentication is needed
-      const response = await axios.get("http://localhost:3000/users", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        "http://auth-db942.hstgr.io:3306/users",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       console.log("User Data:", response.data); // Debugging
 
@@ -72,9 +78,12 @@ function DshOrders() {
     try {
       const token = localStorage.getItem("token"); // Get token if authentication is needed
 
-      const response = await axios.get("http://localhost:3000/products", {
-        headers: { Authorization: `Bearer ${token}` }, // Include token in request
-      });
+      const response = await axios.get(
+        "http://auth-db942.hstgr.io:3306/products",
+        {
+          headers: { Authorization: `Bearer ${token}` }, // Include token in request
+        }
+      );
 
       console.log("Fetched Products:", response.data); // Debugging
       setProducts(response.data);
@@ -95,7 +104,7 @@ function DshOrders() {
       const token = localStorage.getItem("token");
 
       const response = await axios.put(
-        `http://localhost:3000/orders/${orderId}/status`,
+        `http://auth-db942.hstgr.io:3306/orders/${orderId}/status`,
         { status: newStatus },
         {
           headers: {
@@ -123,7 +132,7 @@ function DshOrders() {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        `http://localhost:3000/orders/${orderId}/confirm`,
+        `http://auth-db942.hstgr.io:3306/orders/${orderId}/confirm`,
         {},
         {
           headers: {
@@ -281,15 +290,13 @@ function DshOrders() {
                             className="orderdetail"
                             onClick={() =>
                               updateOrderStatus(order.id, "received")
-                            }
-                          >
+                            }>
                             Update Status
                           </button>
                           <hr />
                           <button
                             className="confirmOrder"
-                            onClick={() => confirmOrder(order.id)}
-                          >
+                            onClick={() => confirmOrder(order.id)}>
                             Confirm Order
                           </button>
                         </div>

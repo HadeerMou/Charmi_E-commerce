@@ -42,12 +42,12 @@ function ProductDetails() {
   const fetchProductDetails = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/products/${productId}`
+        `http://auth-db942.hstgr.io:3306/products/${productId}`
       );
 
       if (response.data) {
         const imagesResponse = await axios.get(
-          `http://localhost:3000/product-images/product/${productId}`
+          `http://auth-db942.hstgr.io:3306/product-images/product/${productId}`
         );
         const images = imagesResponse.data || [];
 
@@ -80,12 +80,16 @@ function ProductDetails() {
       imageFormData.append("productId", productId);
 
       // Send image upload request
-      await axios.post("http://localhost:3000/product-images", imageFormData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.post(
+        "http://auth-db942.hstgr.io:3306/product-images",
+        imageFormData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       // Refresh product images
       fetchProductDetails();
@@ -102,9 +106,12 @@ function ProductDetails() {
         return;
       }
 
-      await axios.delete(`http://localhost:3000/product-images/${imageId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `http://auth-db942.hstgr.io:3306/product-images/${imageId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       // Refresh product images
       fetchProductDetails();
@@ -132,7 +139,7 @@ function ProductDetails() {
       imageFormData.append("isDefault", false); // Keep the same status
 
       await axios.put(
-        `http://localhost:3000/product-images/${imageId}`,
+        `http://auth-db942.hstgr.io:3306/product-images/${imageId}`,
         imageFormData,
         {
           headers: {

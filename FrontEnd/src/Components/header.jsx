@@ -2,9 +2,10 @@ import logo from "../logo.png";
 import "./header.css";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "../TranslationContext"; // Import translation hook
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCurrency } from "../CurrencyContext";
 import axios from "axios";
+import Home from "../Pages/Home";
 
 function Header({
   toggleProductsVisibility,
@@ -21,7 +22,7 @@ function Header({
   const fetchUserCart = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3000/cart", {
+      const response = await axios.get("http://auth-db942.hstgr.io:3306/cart", {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log(response);
@@ -66,17 +67,16 @@ function Header({
     <header className="bg-light shadow-sm">
       <div className="container-fluid">
         <div className="d-flex justify-content-between align-items-center p-3">
-          <a href="" className="logodiv d-flex align-items-center">
+          <Link to={Home} className="logodiv d-flex align-items-center">
             <img src={logo} alt="Logo" className="logo img-fluid" />
-          </a>
+          </Link>
           <div className="d-flex align-items-center">
             <div className="curr">
               <select
                 name="curr"
                 id="sel"
                 value={selectedCurrency}
-                onChange={handleCurrencyChange}
-              >
+                onChange={handleCurrencyChange}>
                 <option value="egp">Egp</option>
                 <option value="dollar">Dollar</option>
               </select>
@@ -86,13 +86,11 @@ function Header({
                 name="language"
                 id="sel"
                 value={selectedLanguage}
-                onChange={handleLanguageChange}
-              >
+                onChange={handleLanguageChange}>
                 <option value="en">English</option>
                 <option value="ar">Arabic</option>
               </select>
             </div>
-
             <div className="position-relative me-3">
               <i className="bi bi-search position-absolute top-50 start-0 translate-middle-y ps-3"></i>
               <input
@@ -120,8 +118,7 @@ function Header({
                 viewBox="0 0 18 20"
                 height="20px"
                 width="18px"
-                onClick={toggleCartVisibility}
-              >
+                onClick={toggleCartVisibility}>
                 <path
                   stroke="currentColor"
                   strokeLinecap="round"
@@ -141,8 +138,7 @@ function Header({
             <li className="nav-item">
               <a
                 onClick={() => navigate("/")}
-                className="home nav-link text-dark"
-              >
+                className="home nav-link text-dark">
                 {translations.home}
               </a>
             </li>
@@ -150,24 +146,21 @@ function Header({
               <a
                 href="#"
                 className="products nav-link text-dark"
-                onClick={toggleProductsVisibility}
-              >
+                onClick={toggleProductsVisibility}>
                 {translations.products}
               </a>
             </li>
             <li className="nav-item">
               <a
                 onClick={() => navigate("/about")}
-                className="about nav-link text-dark"
-              >
+                className="about nav-link text-dark">
                 {translations.about}
               </a>
             </li>
             <li className="nav-item">
               <a
                 onClick={() => navigate("/contact")}
-                className="contact nav-link text-dark"
-              >
+                className="contact nav-link text-dark">
                 {translations.contact}
               </a>
             </li>
