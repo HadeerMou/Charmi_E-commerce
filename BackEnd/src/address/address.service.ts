@@ -104,7 +104,7 @@ export class AddressService {
 
   async getAddressesByUserId(userId: number) {
     return await prisma.userAddresses.findMany({
-      where: { userId },
+      where: { userId: Number(userId) },
       include: { Addresses: true },
     });
   }
